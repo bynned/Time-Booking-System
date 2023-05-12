@@ -26,6 +26,7 @@ function App() {
         selected={startDate}
         onChange={(date) => setStartDate(date)}
       />
+      <button>Send!</button>
     </div>
   );
 }
