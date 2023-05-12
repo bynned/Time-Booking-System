@@ -1,8 +1,12 @@
-const app = require('./app');
+const express = require("express");
+const app = express();
 
 const port = process.env.PORT || 4040;
 app.listen(port, () => {
-  /* eslint-disable no-console */
   console.log(`Listening: http://localhost:${port}`);
-  /* eslint-enable no-console */
 });
+
+app.get("/", (req, res) => {
+    res.send("Heyyyy");
+});
+
