@@ -1,0 +1,14 @@
+GET http://localhost:4040/times
+
+###
+
+POST http://localhost:4040/times HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "alice",
+    "email": "alice@mymail.com",
+    "date": "11/1/2024"
+}
+
+
