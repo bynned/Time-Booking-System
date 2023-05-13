@@ -50,3 +50,33 @@
 body {
   background-color: #0A273C;
 }
+
+.submitModal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.submitModal h2 {
+  margin-bottom: 20px;
+}
+
+.submitModal button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.submitModal button:hover {
+  background-color: #0062cc;
+}

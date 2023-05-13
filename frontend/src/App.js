@@ -66,8 +66,8 @@ function App() {
         <br />
         <button type="submit">Send!</button>
       </form>
-      <Modal isOpen={modalIsOpen}>
-        <h2>Thank you for your submission!</h2>
+      <Modal isOpen={modalIsOpen} className="submitModal">
+        <h2>Thank you for booking!</h2>
         <button onClick={() => setModalIsOpen(false)}>Close</button>
       </Modal>
     </div>
