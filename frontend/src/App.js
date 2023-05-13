@@ -2,11 +2,13 @@ import "./App.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import React, { useState } from "react";
+import Modal from "react-modal";
 
 function App() {
   const [startDate, setStartDate] = useState(new Date());
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -18,9 +20,9 @@ function App() {
       },
       body: JSON.stringify(data),
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
+    .then((response) => {
+      console.log("Success:", response);
+      setModalIsOpen(true);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -34,22 +36,40 @@ function App() {
       <form onSubmit={handleSubmit}>
         <label>
           Name: <br />
-          <input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} />
+          <input
+            type="text"
+            name="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
         </label>
         <br />
         <br />
         <label>
           Email: <br />
-          <input type="text" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input
+            type="text"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </label>
         <br />
         <br />
         Date & Time:
-        <DatePicker selected={startDate} showTimeSelect onChange={(date) => setStartDate(date)} />
+        <DatePicker
+          selected={startDate}
+          showTimeSelect
+          onChange={(date) => setStartDate(date)}
+        />
         <br />
         <br />
         <button type="submit">Send!</button>
       </form>
+      <Modal isOpen={modalIsOpen}>
+        <h2>Thank you for your submission!</h2>
+        <button onClick={() => setModalIsOpen(false)}>Close</button>
+      </Modal>
     </div>
   );
 }
