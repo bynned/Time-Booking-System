@@ -3,6 +3,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import React, { useState } from "react";
 import Modal from "react-modal";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import LoginPage from "./LoginPage";
 
 Modal.setAppElement("#root");
 
@@ -14,6 +16,7 @@ function App() {
   const [modalMessage, setModalMessage] = useState("");
   const [dateErrorMessage, setDateErrorMessage] = useState("");
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const currentDate = new Date();
@@ -55,49 +58,65 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Time Booking!</h1>
-      <br />
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name: <br />
-          <input
-            type="text"
-            name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </label>
+      <Router>
+        <Link to="/login" className="adminButton">
+          Login as Admin
+        </Link>
+        <h1>Time Booking!</h1>
         <br />
-        <br />
-        <label>
-          Email: <br />
-          <input
-            type="text"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
-        {emailErrorMessage && <p className="errorMessage">{emailErrorMessage}</p>}
-        <br />
-        <br />
-        Date & Time:
-        <DatePicker
-          selected={startDate}
-          showTimeSelect
-          onChange={(date) => setStartDate(date)}
-        />
-        {dateErrorMessage && <p className="errorMessage">{dateErrorMessage}</p>}
-        <br />
-        <br />
-        <button type="submit">Send!</button>
-      </form>
-      <Modal isOpen={modalIsOpen} className="submitModal">
-        <h2>{modalMessage}</h2>
-        <button onClick={() => setModalIsOpen(false)}>Close</button>
-      </Modal>
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/" element={(
+            <form onSubmit={handleSubmit}>
+              <label>
+                Name: <br />
+                <input
+                  type="text"
+                  name="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </label>
+              <br />
+              <br />
+              <label>
+                Email: <br />
+                <input
+                  type="text"
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </label>
+              {emailErrorMessage && (
+                <p className="errorMessage">{emailErrorMessage}</p>
+              )}
+              <br />
+              <br />
+              Date & Time:
+              <DatePicker
+                selected={startDate}
+                showTimeSelect
+                onChange={(date) => setStartDate(date)}
+              />
+              {dateErrorMessage && (
+                <p className="errorMessage">{dateErrorMessage}</p>
+              )}
+              <br />
+              <br />
+              <button type="submit">Send!</button>
+            </form>
+          )} />
+        </Routes>
+        <Modal isOpen={modalIsOpen} className="submitModal">
+          <h2>{modalMessage}</h2>
+          <button onClick={() => setModalIsOpen(false)}>Close</button>
+        </Modal>
+      </Router>
     </div>
   );
 }
+
+
 
 export default App;

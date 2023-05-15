@@ -20,7 +20,8 @@
   margin-bottom: 10px;
 }
 
-.App input[type="text"] {
+.App input[type="text"],
+.App input[type="password"] {
   display: block;
   width: 100%;
   padding: 10px;
@@ -32,7 +33,9 @@
   margin-bottom: 20px;
 }
 
-.App button {
+.App button,
+.adminButton {
+  text-decoration: none;
   background-color: #007bff;
   color: #fff;
   border: none;
