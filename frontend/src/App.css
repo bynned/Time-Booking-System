@@ -80,3 +80,9 @@ body {
 .submitModal button:hover {
   background-color: #0062cc;
 }
+
+.errorMessage {
+  color: red;
+  font-size: 18px;
+  margin-top: 5px;
+}

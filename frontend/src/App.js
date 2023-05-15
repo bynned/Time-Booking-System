@@ -78,7 +78,7 @@ function App() {
             onChange={(e) => setEmail(e.target.value)}
           />
         </label>
-        {emailErrorMessage && <p>{emailErrorMessage}</p>}
+        {emailErrorMessage && <p className="errorMessage">{emailErrorMessage}</p>}
         <br />
         <br />
         Date & Time:
@@ -87,7 +87,7 @@ function App() {
           showTimeSelect
           onChange={(date) => setStartDate(date)}
         />
-        {dateErrorMessage && <p>{dateErrorMessage}</p>}
+        {dateErrorMessage && <p className="errorMessage">{dateErrorMessage}</p>}
         <br />
         <br />
         <button type="submit">Send!</button>

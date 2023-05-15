@@ -50,6 +50,16 @@ app.get("/times", (req, res) => {
   res.send(bookings);
 });
 
+// New endpoint for admin user credentials.
+// 15.05.2023 THIS IS ONLY FOR DEMONSTRATION, WOULD NEED TO IMPLEMENT SOMETHING MORE SECURE.
+app.get("/admin/user", (req, res) => {
+  const adminUser = {
+    username: "admin",
+    password: "admin123",
+  };
+  res.json(adminUser);
+});
+
 app.listen(port, () => {
   console.log(`Listening: http://localhost:${port}`);
 });
