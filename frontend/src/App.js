@@ -12,9 +12,23 @@ function App() {
   const [email, setEmail] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
-
+  const [dateErrorMessage, setDateErrorMessage] = useState("");
+  const [emailErrorMessage, setEmailErrorMessage] = useState("");
   const handleSubmit = (event) => {
     event.preventDefault();
+    const currentDate = new Date();
+    if (startDate < currentDate) {
+      setDateErrorMessage("Invalid date");
+      return;
+    }
+    setDateErrorMessage("");
+
+    const emailPattern = /\S+@\S+\.\S+/;
+    if (!emailPattern.test(email)) {
+      setEmailErrorMessage("Invalid email format");
+      return;
+    }
+    setEmailErrorMessage("");
     const data = { name, email, date: startDate };
     fetch("http://localhost:4040/times", {
       method: "POST",
@@ -23,12 +37,12 @@ function App() {
       },
       body: JSON.stringify(data),
     })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error (response.statusText);
-      }
-      setModalIsOpen(true);
-      return response.json();
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        setModalIsOpen(true);
+        return response.json();
       })
       .then((data) => {
         console.log("Success: ", data);
@@ -64,6 +78,7 @@ function App() {
             onChange={(e) => setEmail(e.target.value)}
           />
         </label>
+        {emailErrorMessage && <p>{emailErrorMessage}</p>}
         <br />
         <br />
         Date & Time:
@@ -72,6 +87,7 @@ function App() {
           showTimeSelect
           onChange={(date) => setStartDate(date)}
         />
+        {dateErrorMessage && <p>{dateErrorMessage}</p>}
         <br />
         <br />
         <button type="submit">Send!</button>
