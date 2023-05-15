@@ -4,11 +4,14 @@ import "react-datepicker/dist/react-datepicker.css";
 import React, { useState } from "react";
 import Modal from "react-modal";
 
+Modal.setAppElement("#root");
+
 function App() {
   const [startDate, setStartDate] = useState(new Date());
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -21,11 +24,18 @@ function App() {
       body: JSON.stringify(data),
     })
     .then((response) => {
-      console.log("Success:", response);
+      if (!response.ok) {
+        throw new Error (response.statusText);
+      }
       setModalIsOpen(true);
+      return response.json();
+      })
+      .then((data) => {
+        console.log("Success: ", data);
+        setModalMessage("Booking added successfully!");
       })
       .catch((error) => {
-        console.error("Error:", error);
+        console.error(error);
       });
   };
 
@@ -67,7 +77,7 @@ function App() {
         <button type="submit">Send!</button>
       </form>
       <Modal isOpen={modalIsOpen} className="submitModal">
-        <h2>Thank you for booking!</h2>
+        <h2>{modalMessage}</h2>
         <button onClick={() => setModalIsOpen(false)}>Close</button>
       </Modal>
     </div>
