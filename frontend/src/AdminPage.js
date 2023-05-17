@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
+
 const AdminPage = () => {
   const [times, setTimes] = useState([]);
 
@@ -38,7 +39,7 @@ const AdminPage = () => {
       <h1>Adminpage</h1>
       <div className="fetchedTimes">
         {times.map((time, index) => (
-          <div key={index}>
+          <div className="times" key={index}>
             <p>Name: {time.name}</p>
             <p>Email: {time.email}</p>
             <p>Date: {formatDate(time.date)}</p>
