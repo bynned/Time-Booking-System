@@ -76,7 +76,19 @@ body {
   margin-bottom: 10px;
   border-radius: 5px;
   background-color: #051522;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+
+.timeData {
+  float: left;
+}
+
+.deleteTime {
+  float: right;
+}
+
 
 .submitModal {
   position: absolute;

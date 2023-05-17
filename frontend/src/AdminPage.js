@@ -40,9 +40,12 @@ const AdminPage = () => {
       <div className="fetchedTimes">
         {times.map((time, index) => (
           <div className="times" key={index}>
+          <div className="timeData">
             <p>Name: {time.name}</p>
             <p>Email: {time.email}</p>
             <p>Date: {formatDate(time.date)}</p>
+          </div>
+            <button className="deleteTime">Delete</button>
           </div>
         ))}
       </div>

@@ -52,6 +52,16 @@ app.get("/times", (req, res) => {
   res.send(bookings);
 });
 
+app.delete("/times/:id", (req, res) => {
+  const id = req.params.id;
+  const index = bookings.findIndex((booking) => booking.id === id);
+  if (index === -1) {
+    return res.status(404).json({ message: "Booking not found" });
+  }
+  const deletedBooking = bookings.splice(index, 1);
+  res.status(200).json({ message: "Booking deleted successfully", booking: deletedBooking });
+});
+
 // New endpoint for admin user credentials.
 // 15.05.2023 THIS IS ONLY FOR DEMONSTRATION, WOULD NEED TO IMPLEMENT SOMETHING MORE SECURE.
 app.get("/admin/user", (req, res) => {
