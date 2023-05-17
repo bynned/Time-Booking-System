@@ -1,8 +1,8 @@
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
   return (
     <div>
-      <h1>Login Page</h1>
       <form>
         <div>
           <label htmlFor="username">Username:</label>
@@ -18,7 +18,13 @@ const LoginPage = () => {
             id="password"
           />
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit">Login</button>
+        <br />
+        <br />
+        <br />
+        <Link to="/" className="adminButton">
+          Cancel
+        </Link>
       </form>
     </div>
   );
