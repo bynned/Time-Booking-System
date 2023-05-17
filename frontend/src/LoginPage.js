@@ -1,14 +1,39 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, Navigate } from "react-router-dom";
 
 const LoginPage = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [redirectToAdmin, setRedirectToAdmin] = useState(false);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    const response = await fetch("http://localhost:4040/admin/user");
+    const adminUser = await response.json();
+
+    if (username === adminUser.username && password === adminUser.password) {
+      console.log("Login successful");
+      setRedirectToAdmin(true);
+    } else {
+      console.log("Invalid credentials");
+    }
+  };
+
+  if (redirectToAdmin) {
+    return <Navigate to="/admin" />;
+  }
+
   return (
     <div>
-      <form>
+      <form onSubmit={handleLogin}>
         <div>
           <label htmlFor="username">Username:</label>
           <input
             type="text"
             id="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </div>
         <div>
@@ -16,11 +41,13 @@ const LoginPage = () => {
           <input
             type="password"
             id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <Link to="/admin" className="adminButton">
+        <button type="submit" className="adminButton">
           Login
-        </Link>
+        </button>
         <br />
         <br />
         <br />
