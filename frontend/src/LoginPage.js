@@ -5,6 +5,7 @@ const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [redirectToAdmin, setRedirectToAdmin] = useState(false);
+  const [invalidCredentials, setInvalidCredentials] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -17,6 +18,7 @@ const LoginPage = () => {
       setRedirectToAdmin(true);
     } else {
       console.log("Invalid credentials");
+      setInvalidCredentials("Invalid Credentials!");
     }
   };
 
@@ -44,6 +46,9 @@ const LoginPage = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          {invalidCredentials && (
+            <p className="errorMessage">{invalidCredentials}</p>
+          )}
         </div>
         <button type="submit" className="adminButton">
           Login
