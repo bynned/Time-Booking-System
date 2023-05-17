@@ -18,7 +18,9 @@ const LoginPage = () => {
             id="password"
           />
         </div>
-        <button type="submit">Login</button>
+        <Link to="/admin" className="adminButton">
+          Login
+        </Link>
         <br />
         <br />
         <br />

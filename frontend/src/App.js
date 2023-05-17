@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import LoginPage from "./LoginPage";
+import AdminPage from "./AdminPage";
 
 Modal.setAppElement("#root");
 
@@ -59,54 +60,60 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Link to="/login" className="adminButton">
-          Login as Admin
-        </Link>
         <h1>Time Booking!</h1>
         <br />
         <Routes>
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/" element={(
-            <form onSubmit={handleSubmit}>
-              <label>
-                Name: <br />
-                <input
-                  type="text"
-                  name="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+          <Route path="/admin" element={<AdminPage />} />
+          <Route
+            path="/"
+            element={
+              <form onSubmit={handleSubmit}>
+                <label>
+                  Name: <br />
+                  <input
+                    type="text"
+                    name="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </label>
+                <br />
+                <br />
+                <label>
+                  Email: <br />
+                  <input
+                    type="text"
+                    name="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </label>
+                {emailErrorMessage && (
+                  <p className="errorMessage">{emailErrorMessage}</p>
+                )}
+                <br />
+                <br />
+                Date & Time:
+                <DatePicker
+                  selected={startDate}
+                  showTimeSelect
+                  onChange={(date) => setStartDate(date)}
                 />
-              </label>
-              <br />
-              <br />
-              <label>
-                Email: <br />
-                <input
-                  type="text"
-                  name="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </label>
-              {emailErrorMessage && (
-                <p className="errorMessage">{emailErrorMessage}</p>
-              )}
-              <br />
-              <br />
-              Date & Time:
-              <DatePicker
-                selected={startDate}
-                showTimeSelect
-                onChange={(date) => setStartDate(date)}
-              />
-              {dateErrorMessage && (
-                <p className="errorMessage">{dateErrorMessage}</p>
-              )}
-              <br />
-              <br />
-              <button type="submit">Send!</button>
-            </form>
-          )} />
+                {dateErrorMessage && (
+                  <p className="errorMessage">{dateErrorMessage}</p>
+                )}
+                <br />
+                <br />
+                <div className="button-container">
+                <button type="submit">Send!</button>
+                <Link to="/login" className="adminLoginButton">
+                  Login as Admin
+                </Link>
+                </div>
+              </form>
+            }
+          />
         </Routes>
         <Modal isOpen={modalIsOpen} className="submitModal">
           <h2>{modalMessage}</h2>
@@ -116,7 +123,5 @@ function App() {
     </div>
   );
 }
-
-
 
 export default App;
