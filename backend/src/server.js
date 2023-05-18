@@ -4,6 +4,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const { body, validationResult } = require("express-validator");
 const helmet = require("helmet");
+const { v4: uuidv4 } = require("uuid");
 
 app.use(helmet());
 app.use(cors());
@@ -43,7 +44,8 @@ app.post("/times",
     }
 
     const { name, email, date } = req.body;
-    bookings.push({ name, email, date });
+    const id = uuidv4();
+    bookings.push({ name, email, date, id });
     res.status(200).json({ message: "Booking added successfully" });
   }
 );
